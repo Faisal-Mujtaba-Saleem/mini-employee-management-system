@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 720 120"
+  width="240"
+  height="40"
+  role="img"
+  aria-labelledby="title desc"
+>
+  <title id="title">EmployeeManagementSystem logo</title>
+  <desc id="desc">Colorful rounded EMS badge with animated gradient title text</desc>
+
+  <defs>
+    <!-- badge gradient -->
+    <linearGradient id="badgeGrad" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#ff5f7a"/>
+      <stop offset="50%" stop-color="#7c3aed"/>
+      <stop offset="100%" stop-color="#06b6d4"/>
+    </linearGradient>
+
+    <!-- title gradient (animated) -->
+    <linearGradient id="titleGrad" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0%" stop-color="#06b6d4"/>
+      <stop offset="30%" stop-color="#7c3aed"/>
+      <stop offset="60%" stop-color="#ff5f7a"/>
+      <stop offset="100%" stop-color="#f97316"/>
+      <!-- animate the gradient by shifting its stops -->
+      <animate
+        href="#titleGrad"
+        attributeName="x1"
+        from="0" to="1"
+        dur="6s"
+        repeatCount="indefinite"
+      />
+    </linearGradient>
+
+    <!-- soft drop shadow filter -->
+    <filter id="softShadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#0b1220" flood-opacity="0.12"/>
+    </filter>
+
+    <!-- subtle glossy highlight -->
+    <linearGradient id="gloss" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- rounded corner mask for gloss -->
+    <clipPath id="pillClip">
+      <rect x="12" y="16" width="120" height="88" rx="22" ry="22"/>
+    </clipPath>
+  </defs>
+
+  <!-- background (transparent) -->
+  <!-- Badge (left) -->
+  <g transform="translate(0,0)">
+    <!-- pill with gradient and shadow -->
+    <rect
+      x="12"
+      y="16"
+      width="120"
+      height="88"
+      rx="22"
+      ry="22"
+      fill="url(#badgeGrad)"
+      filter="url(#softShadow)"
+    />
+
+    <!-- inner emblem circle -->
+    <circle cx="72" cy="60" r="28" fill="rgba(255,255,255,0.08)"/>
+
+    <!-- EMS letters -->
+    <g font-family="Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial"
+       font-weight="800" text-anchor="middle" fill="#fff">
+      <text x="36" y="68" font-size="28" letter-spacing="0.5">E</text>
+      <text x="72" y="68" font-size="28" letter-spacing="0.5">M</text>
+      <text x="108" y="68" font-size="28" letter-spacing="0.5">S</text>
+    </g>
+
+    <!-- small accent dots for a playful feel -->
+    <circle cx="28" cy="36" r="3" fill="#ffd166" />
+    <circle cx="108" cy="36" r="3" fill="#ffd166" />
+    <circle cx="96" cy="92" r="2.5" fill="#fff" opacity="0.18" />
+    <circle cx="28" cy="84" r="2.5" fill="#fff" opacity="0.18" />
+
+    <!-- glossy highlight clipped to pill -->
+    <rect x="12" y="16" width="120" height="44" clip-path="url(#pillClip)" fill="url(#gloss)" rx="22" ry="22" />
+  </g>
+
+  <!-- Title text (right) -->
+  <g transform="translate(160,34)">
+    <!-- tagline / subtext left for balance -->
+    <text
+      x="0"
+      y="18"
+      font-family="Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial"
+      font-size="25"
+      fill="#6b7280"
+      font-weight="600"
+      letter-spacing="0.6"
+    >
+      <!-- Manage people • Grow teams • Stay organized -->
+       Upload CSV • Find Employees • Print Profiles
+    </text>
+
+    <!-- main title with gradient fill -->
+    <text
+      x="0"
+      y="70"
+      font-family="Poppins, Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial"
+      font-size="36"
+      font-weight="800"
+      fill="url(#titleGrad)"
+      style="letter-spacing:0.4px"
+    >
+      EmployeeManagementSystem
+    </text>
+  </g>
+
+  <!-- optional small badge on right (for visual balance) -->
+  <!-- <g transform="translate(620,20)" opacity="0.95">
+    <rect x="0" y="0" width="88" height="40" rx="10" ry="10" fill="#f3f4f6" />
+    <text x="44" y="26" text-anchor="middle" font-family="Inter, sans-serif" font-size="30" font-weight="700" fill="#111827">
+      v1.0
+    </text>
+  </g> -->
+</svg>
