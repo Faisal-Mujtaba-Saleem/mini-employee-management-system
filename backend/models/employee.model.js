@@ -1,6 +1,13 @@
 const { default: mongoose } = require("mongoose");
 
 const EmployeeSchema = mongoose.Schema({
+  employeeId: {
+    type: String,
+    required: true,
+    default: function ()  {
+      return this._id.toString().slice(0, 8);
+    },
+  },
   companyName: {
     type: String,
     required: true,

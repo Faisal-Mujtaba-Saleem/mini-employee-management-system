@@ -11,41 +11,32 @@ import {
 } from "./ui/dialog";
 import { DialogContext } from "@/context/DialogContext ";
 import { useContext, useEffect, useRef } from "react";
+import { AlertDialogContext } from "@/context/AlertDialogContext";
+import { useReactToPrint } from "react-to-print";
+import Card from "./Card";
 
-export function AppDialog(props) {
-  const dialogTrigRef = useRef(null);
-  const printableContentContainerRef = useRef(null);
-
+export function AppPrintDialog(props) {
   const { setDialogTrig } = useContext(DialogContext);
-  const { _dialog } = useContext(DialogContext);
+  const { dialogCard } = useContext(DialogContext);
+  const { showAlertDialog } = useContext(AlertDialogContext);
 
+  const dialogTrigRef = useRef(null);
+  const printableCardRef = useRef(null);
+
+  // Setting the dialog trigger in a dialog context
   useEffect(() => {
     setDialogTrig(dialogTrigRef.current);
   }, []);
+  useEffect(() => {
+    console.log(printableCardRef.current);
+  }, [printableCardRef]);
 
-  const handlePrint = () => {
-    const printWindow = window.open();
-    printWindow.document.write(`
-    <html>
-      <head>
-        <title>${_dialog.title}</title>
-        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-        <style>
-        /* Optional styling for print */
-        body { font-family: Arial, sans-serif; }
-        </style>
-        </head>
-        <body>
-        ${printableContentContainerRef.current.innerHTML}
-        </body>
-    </html>
-  `);
-    printWindow.document.close();
-
-    setTimeout(() => {
-      printWindow.print();
-    }, 100);
-  };
+  const handlePrint = useReactToPrint({
+    contentRef: printableCardRef,
+    onPrintError: (err) => {
+      showAlertDialog("Error", err);
+    },
+  });
 
   return (
     <Dialog>
@@ -55,19 +46,19 @@ export function AppDialog(props) {
           <DialogHeader>
             <DialogTitle>
               <span className="inline-block px-4 py-1 rounded-full bg-gradient-to-r from-indigo-500 to-indigo-300 text-white font-semibold text-base shadow-md border border-indigo-200">
-                {_dialog.title}
+                {dialogCard.title}
               </span>
             </DialogTitle>
-            <DialogDescription>{_dialog.desc}</DialogDescription>
+            <DialogDescription>{dialogCard.desc}</DialogDescription>
           </DialogHeader>
 
           {/* dialog content here */}
           <div
-            id="printable-content-container"
+            ref={printableCardRef}
+            id="printable-card-container"
             className="flex justify-center items-center my-4"
-            ref={printableContentContainerRef}
           >
-            {_dialog.content}
+            <Card {...dialogCard.content} />
           </div>
 
           <DialogFooter>

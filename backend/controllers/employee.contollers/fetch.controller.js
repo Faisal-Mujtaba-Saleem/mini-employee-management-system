@@ -6,7 +6,7 @@ const handleFetchEmployee = async (req, res) => {
         console.log("Fetching employee initiated");
         
         let query = {
-            _id: new mongoose.Types.ObjectId(req.query.id),
+            employeeId: req.query.id,
             phoneNumber: req.query.phoneNumber
         };
 
@@ -22,7 +22,7 @@ const handleFetchEmployee = async (req, res) => {
             return;
         }
 
-        res.status(200).json({ message: 'Employee found successfully.', employee });
+        res.status(200).json({ message: 'Employee fetched successfully.', employee });
         
         console.log("Employee fetch process completed successfully");
     } catch (error) {

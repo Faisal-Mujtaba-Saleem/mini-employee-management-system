@@ -4,14 +4,14 @@ export const DialogContext = createContext();
 
 export const DialogProvider = ({ children }) => {
   const [dialogTrig, setDialogTrig] = useState(null);
-  const [_dialog, setDialog] = useState({
+  const [dialogCard, setDialogCard] = useState({
     title: "",
     desc: "",
     content: null,
   });
 
   const showDialog = (title, desc, content) => {
-    setDialog({ title, desc, content });
+    setDialogCard({ title, desc, content });
 
     if (!!dialogTrig) {
       dialogTrig.click(); // Trigger the dialog to open
@@ -23,7 +23,7 @@ export const DialogProvider = ({ children }) => {
       value={{
         dialogTrig,
         setDialogTrig,
-        _dialog,
+        dialogCard,
         showDialog,
       }}
     >

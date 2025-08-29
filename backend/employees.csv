@@ -1,5 +1,0 @@
-companyName,address.city,address.locality,name,position,phoneNumber,email,role
-Acme Corp,New York,Manhattan,John Doe,Manager,1234567890,john.doe@acme.com,admin
-Beta Ltd,San Francisco,SOMA,Jane Smith,Developer,2345678901,jane.smith@beta.com,employee
-Gamma Inc,Los Angeles,Hollywood,Bob Lee,Designer,3456789012,bob.lee@gamma.com,employee
-Delta LLC,Chicago,Lincoln Park,Alice Kim,HR,4567890123,alice.kim@delta.com,admin

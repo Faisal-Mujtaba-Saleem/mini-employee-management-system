@@ -8,23 +8,23 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "@/components/ui/sidebar"
-import { Upload, User } from "lucide-react";
+} from "@/components/ui/sidebar";
+import { Printer, Upload, User } from "lucide-react";
 import { Link } from "react-router";
 
-const AppSideBar = () => {
+function AppSideBar() {
   const sidebarItems = [
     { title: "Upload CSV", url: "/upload", icon: Upload },
     { title: "Employee Card", url: "/employee-card", icon: User },
+    { title: "Print All Cards", url: "/print-all-cards", icon: Printer },
   ];
+  
   return (
     <Sidebar>
       <SidebarContent>
         <SidebarGroup className="flex flex-col gap-2">
           <SidebarGroupLabel>
-            <span className="text-lg font-semibold px-2">
-                E.M.S
-            </span>
+            <span className="text-lg font-semibold px-2">E.M.S</span>
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
@@ -44,6 +44,6 @@ const AppSideBar = () => {
       </SidebarContent>
     </Sidebar>
   );
-};
+}
 
 export default AppSideBar;

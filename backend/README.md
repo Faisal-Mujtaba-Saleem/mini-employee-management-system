@@ -14,7 +14,7 @@ This backend service is built with Node.js, Express, and MongoDB. It provides AP
 backend/
 │
 ├── app.js                  # Main application entry point
-├── employees.csv           # Sample employee data (CSV)
+├── employee.csv           # Sample employee data (CSV)
 ├── files.json              # File metadata (if used)
 ├── package.json            # Project dependencies and scripts
 │

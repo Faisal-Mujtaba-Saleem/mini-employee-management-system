@@ -4,7 +4,7 @@ import { Input } from "../components/ui/input";
 import { Sheet } from "../components/ui/sheet";
 import { AlertDialogContext } from "@/context/AlertDialogContext";
 
-const UploadCSV = () => {
+function UploadCSV() {
   const { showAlertDialog } = useContext(AlertDialogContext);
 
   const handleSubmitCSV = async (e) => {
@@ -13,7 +13,7 @@ const UploadCSV = () => {
       // Handle the file upload logic here
       const CSV_SubmissionForm = new FormData(e.target);
 
-      const res = await fetch("http://localhost:3000/api/employee/upload", {
+      const res = await fetch("http://localhost:3000/api/employees/upload", {
         method: "POST",
         body: CSV_SubmissionForm,
       });
@@ -22,11 +22,11 @@ const UploadCSV = () => {
         throw new Error("Failed to upload CSV. Please try again.");
       }
 
-      const data = await res.json();
-      console.log("CSV uploaded successfully:", data);
+      const {message, data} = await res.json();
+      console.log(message, data);
 
       // Handle success (e.g., show a success message, redirect, etc.)
-      showAlertDialog("Success", "CSV uploaded successfully!");
+      showAlertDialog("Success", message);
 
       // Reset the form after successful upload
       e.target.reset();
@@ -39,8 +39,10 @@ const UploadCSV = () => {
   };
 
   return (
-    <Sheet>
-      <div className="upload-csv-container max-w-[420px] mx-auto p-10 rounded-3xl shadow-2xl bg-gradient-to-br from-slate-50 to-indigo-100 flex flex-col items-center absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+      <div
+        id="upload-csv-container"
+        className="flex flex-col items-center min-h-[auto] max-w-[auto]"
+      >
         <div className="upload-csv-icon w-20 h-20 rounded-full bg-gradient-to-br from-indigo-500 to-indigo-400 flex items-center justify-center mb-6 shadow-lg">
           <svg width="40" height="40" fill="white" viewBox="0 0 24 24">
             <path
@@ -89,8 +91,7 @@ const UploadCSV = () => {
           </Button>
         </form>
       </div>
-    </Sheet>
   );
-};
+}
 
 export default UploadCSV;

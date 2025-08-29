@@ -5,7 +5,7 @@ const Employee = require("../../models/employee.model");
 const handleFileUpload = async (req, res) => {
   try {
     // Log the initiation of file upload
-    console.log("File uploading initiated");
+    console.log("CSV uploading initiated");
 
     // Check if file is provided
     if (!req.file) {
@@ -18,27 +18,27 @@ const handleFileUpload = async (req, res) => {
     const sheet = workbook.Sheets[sheetName];
     const raw_employees = xlsx.utils.sheet_to_json(sheet);
 
-    if (raw_employees.length === 0) {
+    if (raw_employee.length === 0) {
       return res.status(400).json({ message: "No data found in the file" });
     }
 
     // nesting the employee data
-    const nested_employess = raw_employees.map((emp) => flat.unflatten(emp));
+    const nested_employess = raw_employee.map((emp) => flat.unflatten(emp));
 
     // Save the file document to the database
     const insertedEmployees = await Employee.insertMany(nested_employess);
 
     // Return the response
     res.status(200).json({
-      message: "File uploaded and data saved successfully",
+      message: "CSV uploaded successfully!",
       data: insertedEmployees,
     });
 
     // Log the success message
-    console.log("File upload process completed successfully");
+    console.log("CSV upload completed successfully");
   } catch (err) {
     // Log the error message
-    console.error("Error during file upload:", err);
+    console.error("Error during CSV upload:", err);
     // Return the error response
     res.status(500).json({ error: err.message });
   }

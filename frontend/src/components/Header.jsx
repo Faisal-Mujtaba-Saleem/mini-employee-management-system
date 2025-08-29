@@ -3,7 +3,7 @@ import logo from "../assets/logo.svg";
 import { SidebarProvider, SidebarTrigger } from "./ui/sidebar";
 import AppSideBar from "./AppSideBar";
 
-const Header = () => {
+function Header() {
   const mobMenuTrigRef = useRef(null);
   return (
     <div>

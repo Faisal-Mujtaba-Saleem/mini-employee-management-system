@@ -1,4 +1,3 @@
-import Card from "@/components/Card";
 import { AlertDialogContext } from "@/context/AlertDialogContext";
 import { DialogContext } from "@/context/DialogContext ";
 import React, { useContext } from "react";
@@ -7,14 +6,9 @@ function EmployeeCard() {
   const { showDialog } = useContext(DialogContext);
   const { showAlertDialog } = useContext(AlertDialogContext);
 
-  const fetchEmployee = async (e) => {
-    e.preventDefault();
-
+  const fetchEmployee = async (fetchEmployeeForm) => {
     try {
-      // Handle the form submission logic here:
-
-      // Create a FormData object from the form submission
-      const fetchEmployeeForm = new FormData(e.target);
+      // Fetching employee logic here:
 
       // Assuming the form has fields named 'employeeId' and 'phoneNumber'
       const id = fetchEmployeeForm.get("employeeId");
@@ -22,7 +16,7 @@ function EmployeeCard() {
 
       //   Fetch employee details from the API
       const res = await fetch(
-        `http://localhost:3000/api/employee/fetch?id=${id}&phoneNumber=${phoneNumber}`
+        `http://localhost:3000/api/employees/fetch?id=${id}&phoneNumber=${phoneNumber}`
       );
       // Check if the response is ok
       if (!res.ok) {
@@ -30,14 +24,11 @@ function EmployeeCard() {
       }
 
       // Handle the response data as needed
-      const data = await res.json();
-      console.log("Employee details fetched successfully:", data);
+      const { message, employee } = await res.json();
+      console.log(message, employee);
 
       // Show a dialog with the fetched employee details
-      showDialog(data.employee.name, "", Card(data.employee));
-
-      // Reset the form after successful fetch
-      e.target.reset();
+      showDialog(employee.name, "", employee);
     } catch (error) {
       console.error("Error fetching employee details:", error);
       showAlertDialog("Error", error.message);
@@ -46,17 +37,22 @@ function EmployeeCard() {
 
   return (
     <div
-      className="employee-card-form-container min-h-[350px] flex items-center justify-center bg-gradient-to-br from-slate-50 to-indigo-100 p-8 rounded-3xl shadow-2xl"
-      style={{
-        position: "absolute",
-        top: "50%",
-        left: "50%",
-        transform: "translate(-50%, -50%)",
-      }}
+      id="employee-card-form-container"
+      className="min-h-[auto] max-w-[auto]"
     >
       <form
         className="employee-card-form w-full max-w-md bg-white rounded-2xl shadow-lg p-8 flex flex-col gap-6 border border-indigo-100"
-        onSubmit={fetchEmployee}
+        onSubmit={(e) => {
+          // Prevent the form from submitting
+          e.preventDefault();
+
+          // Create a FormData object from the form submission details
+          const fetchEmployeeForm = new FormData(e.target);
+          fetchEmployee(fetchEmployeeForm);
+
+          // Reset the form after successful fetch
+          e.target.reset();
+        }}
       >
         <h2 className="text-2xl font-extrabold text-indigo-700 text-center mb-2 tracking-wide">
           Fetch Employee Details
@@ -74,7 +70,7 @@ function EmployeeCard() {
             name="employeeId"
             placeholder="Enter Employee ID"
             className="employee-id-input px-4 py-3 rounded-lg border border-indigo-200 focus:outline-none focus:ring-2 focus:ring-indigo-400 text-base bg-slate-50"
-            autoComplete="off"
+            autoComplete="on"
           />
         </div>
         <div className="flex flex-col gap-2">
@@ -90,7 +86,7 @@ function EmployeeCard() {
             name="phoneNumber"
             placeholder="Enter Phone Number"
             className="phone-number-input px-4 py-3 rounded-lg border border-indigo-200 focus:outline-none focus:ring-2 focus:ring-indigo-400 text-base bg-slate-50"
-            autoComplete="off"
+            autoComplete="on"
           />
         </div>
         <button

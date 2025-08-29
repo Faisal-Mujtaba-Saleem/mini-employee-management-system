@@ -16,7 +16,7 @@ connectDB();
 app.use(cors());
 
 // Routes
-app.use("/api/employee", employeeRoutes);
+app.use("/api/employees", employeeRoutes);
 
 // Start server
 app.listen(PORT, () => {
